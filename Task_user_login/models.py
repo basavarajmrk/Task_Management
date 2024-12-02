@@ -18,6 +18,8 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     groups = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='Custom_User_Group', null=True)
     user_permissions = models.ManyToManyField(Permission, blank=True, related_name='custom_user_permissions')
 
-objects = CustomUserManager()
-USERNAME_FIELD = ['email']
-REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    def __str__(self):
+            return self.email
+    objects = CustomUserManager()

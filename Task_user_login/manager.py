@@ -14,7 +14,7 @@ class CustomUserManager (BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-    def sueper_user(self, email, password=None, **extra_fileds):
+    def create_superuser(self, email, password=None, **extra_fileds):
         Admin, _= Group.objects.get_or_create(name='Admin')
         extra_fileds.setdefault('is_staff', True) 
         extra_fileds.setdefault('is_active', True) 
