@@ -23,3 +23,11 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
             return self.email
     objects = CustomUserManager()
+
+    def save(self, *args,**kwargs) -> None:
+        if not self.groups:
+            group = Group.objects.get(name="Candidate")
+            self.groups=group
+      #   if not self.is_active:
+      #       self.is_active = True
+        super(UserModel, self).save(*args, **kwargs)
