@@ -8,7 +8,7 @@ class UserModelSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ['id', 'username', 'email']     
 class UserProfileSerializer(serializers.ModelSerializer):
-
+    username = serializers.CharField(required = True)
     password = serializers.CharField(required = True, write_only = True,)
     email = serializers.CharField(required = True)
 

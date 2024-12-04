@@ -60,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",  # Add this
-    "django.middleware.common.CommonMiddleware", 
 ]
 
 ROOT_URLCONF = 'Task_Management.urls'
@@ -159,3 +158,6 @@ DJOSER = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'Task_user_login.UserModel'
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
