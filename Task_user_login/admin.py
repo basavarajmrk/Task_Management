@@ -31,6 +31,7 @@ class CustomUserAdmin(UserAdmin):
                     'password',
                     'email',
                     'groups',
+                    'reports_to',
 
 
                 )
@@ -65,6 +66,7 @@ class CustomUserAdmin(UserAdmin):
              'password1',
              'password2',
              'groups',
+             'reports_to',
              'is_active',
              'is_staff',
              'is_superuser',

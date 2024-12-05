@@ -27,6 +27,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('api/Task_user_login/',include('Task_user_login.urls')),
+    path('api/Task_app/',include('Task_app.urls')),
 
 
 ]

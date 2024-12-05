@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from django.contrib.auth.models import Group, Permission
 from .manager import CustomUserManager
+from django.db.models import Q
 # Create your models here.
 class Role(models.TextChoices):
       EMPLOYEE = 'Employee'
@@ -17,7 +18,10 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     groups = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='Custom_User_Group', null=True)
     user_permissions = models.ManyToManyField(Permission, blank=True, related_name='custom_user_permissions')
-
+    reports_to = models.ForeignKey('UserModel', default=None, null=True, blank=True,
+                                   limit_choices_to=Q(groups__name='Admin') | Q(
+                                       groups__name='Project_Manager') | Q(groups__name='HR_Admin'),
+                                   on_delete=models.SET_DEFAULT)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     def __str__(self):
@@ -28,6 +32,6 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         if not self.groups:
             group = Group.objects.get(name="Candidate")
             self.groups=group
-      #   if not self.is_active:
-      #       self.is_active = True
+        if not self.is_active:
+            self.is_active = True
         super(UserModel, self).save(*args, **kwargs)
