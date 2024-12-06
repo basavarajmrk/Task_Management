@@ -131,6 +131,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 REST_FRAMEWORK = {
+    'DEFAULT_METADATA_CLASS': 'Task_app.metadata.ManyToManyMetaData',
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.OrderingFilter",
