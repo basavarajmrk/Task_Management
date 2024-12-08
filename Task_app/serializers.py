@@ -1,4 +1,4 @@
-from .models import Taskmodel
+from .models import Taskmodel, BacklogsTaskModel
 from rest_framework import serializers
 from django.db.models import Q
 from Task_user_login.models import UserModel
@@ -19,15 +19,21 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Taskmodel
         fields = ['id', 'title', 'description', 'due_date','status','priority','assigned_to','created_by']
-    def validate_assigned_to(self, value):
-        # Get the current user (reporting manager)
-        user = self.context['request'].user
+    # def validate_assigned_to(self, value):
+    #     # Get the current user (reporting manager)
+    #     user = self.context['request'].user
 
-        # Check if each assigned user reports to the current manager
-        for user_id in value:
-            assigned_user = UserModel.objects.get(id=user_id)
-            if assigned_user.reports_to != user:
-                raise serializers.ValidationError(f"User {assigned_user.username} does not report to you.")
+    #     # Check if each assigned user reports to the current manager
+    #     for user_id in value:
+    #         assigned_user = UserModel.objects.get(id=user_id)
+    #         if assigned_user.reports_to != user:
+    #             raise serializers.ValidationError(f"User {assigned_user.username} does not report to you.")
         
-        return value
+    #     return value
+class BackLogTaskSerializer(serializers.ModelSerializer):
+    task = serializers.StringRelatedField(read_only=True)
+    # created_by = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model =BacklogsTaskModel
+        fields = ('id','task','original_due_date','moved_to_backlog_date','assigned_to_due','comments')
         

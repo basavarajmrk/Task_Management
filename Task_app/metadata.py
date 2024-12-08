@@ -16,4 +16,10 @@ class ManyToManyMetaData(SimpleMetadata):
                 requirements = UserModel.objects.filter(reports_to=user).values().order_by("id")
                 assigned_to_options = UserModelSerializer(requirements, many=True).data
                 metadata['actions']['POST']['assigned_to']['choices'] = assigned_to_options
+            elif 'assigned_to_due' in serializer.fields:
+                user=request.user
+                requirements = UserModel.objects.filter(reports_to=user).values().order_by("id")
+                assigned_to_options = UserModelSerializer(requirements, many=True).data
+                metadata['actions']['POST']['assigned_to_due']['choices'] = assigned_to_options
+
         return metadata

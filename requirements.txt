@@ -4,3 +4,4 @@ djoser==2.3.1
 django-filter==24.3
 django-cors-headers==4.6.0
 dj-rest-auth==7.0.0
+ schedule==1.2.2
